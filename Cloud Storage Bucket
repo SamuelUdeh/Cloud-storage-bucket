@@ -1,0 +1,40 @@
+gcloud auth list
+gcloud config list project
+gcloud config set compute/region us-east1
+
+# To create the bucket
+gsutil mb gs://cloud-storage-bucket-416909
+
+# Upload an object into your bucket
+curl https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Ada_Lovelace_portrait.jpg/800px-Ada_Lovelace_portrait.jpg --output ada.jpg
+
+# Use the gsutil cp command to upload the image from the location where you saved it to the bucket you created:
+
+gsutil cp ada.jpg gs://cloud-storage-bucket-416909
+
+# To remove the downloaded image:
+
+rm ada.jpg
+
+# To Download an object from your bucket
+gsutil cp -r gs://cloud-storage-bucket-416909/ada.jpg .
+
+# Copy an object to a folder in the bucket
+# Use the gsutil cp command to create a folder called image-folder and copy the image (ada.jpg) into it:
+
+gsutil cp gs://cloud-storage-bucket-416909/ada.jpg gs://cloud-storage-bucket-416909/image-folder/
+
+# To List contents of a bucket or folder
+gsutil ls gs://cloud-storage-bucket-416909
+
+# TO List details for an object
+gsutil ls -l gs://cloud-storage-bucket-416909/ada.jpg
+
+# To Make your object publicly accessible
+gsutil acl ch -u AllUsers:R gs://cloud-storage-bucket-416909/ada.jpg
+
+# To access the bucket, use the URL below:
+https://storage.googleapis.com/cloud-storage-bucket-416909/ada.jpg
+
+# To remove public access
+gsutil acl ch -d AllUsers gs://cloud-storage-bucket-416909/ada.jpg
